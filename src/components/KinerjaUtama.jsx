@@ -10,7 +10,7 @@ function KinerjaUtama() {
   });
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-7">
       <h1 className='text-3xl font-bold mb-4'>Kinerja Utama</h1>
       
       <div className='flex justify-between items-center mb-4'>

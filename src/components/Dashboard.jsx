@@ -2,8 +2,9 @@ import React from 'react'
 
 function Dashboard() {
   return (
-    <div>
-      <p>tes</p>
+    <div className='p-7'>
+      <p>Ini Dashboard Kosong
+      </p>
     </div>
   )
 }

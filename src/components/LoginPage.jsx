@@ -1,8 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/Dashboard');
+  };
+
   return (
-    <div className="min-h-screen min-w-screen flex flex-col items-center justify-center">
+    <div className="bg-[#213854] min-h-screen min-w-screen flex flex-col items-center justify-center">
         <img
           src="src/assets/logo-dsi.png"
           alt="Logo"
@@ -10,7 +18,7 @@ function LoginPage() {
         />
         <div className="items-center justify-center bg-[#2981AA] p-10 rounded-lg">
             <h2 className='text-white text-5xl font-semibold mb-10 text-center'>Masuk</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='block text-xl font-medium text-left'>
                     <label className='text-white'>Email</label>
                     <input type="email"
