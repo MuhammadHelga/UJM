@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function KinerjaUtama() {
+  const navigate = useNavigate();
+
   const today = new Date().toLocaleDateString('id-ID', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   });
@@ -25,13 +28,13 @@ function KinerjaUtama() {
       </div>
 
       <div className='overflow-y-auto max-h-screen pr-2'>
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: 15 }).map((_, index) => (
           <div key={index} className="bg-[#DDF4FF] border p-4 mb-4 rounded-md w-full flex flex-row justify-between items-center">
             <div className='flex flex-col'>
               <h3 className="font-semibold">Mahasiswa Bekerja di Luar Kampus Departemen Sistem Informasi</h3>
               <p>Periode: 01-07-2022 s/d 31-12-2022</p>
             </div>
-            <button className="bg-[#2981AA] text-white px-4 py-2 rounded">Lihat Detail</button>
+            <button onClick={() => navigate('/RencanaKinerja')} className="bg-[#2981AA] text-white px-4 py-2 rounded-lg">Lihat Detail</button>
           </div>
         ))}
       </div>

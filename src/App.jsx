@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LoginPage from './components/LoginPage'
+// import LoginPage from './components/LoginPage'
 import SideBar from './components/SideBar'
 // import Dashboard from './components/Dashboard'
 import KinerjaUtama from './components/KinerjaUtama'
+import RencanaKinerja from './components/RencanaKinerja'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/Dashboard' element={<Dashboard />} />
           <Route path='/ProgramKinerja' element={<KinerjaUtama />} />
+          <Route path='/RencanaKinerja' element={<RencanaKinerja />} /> 
         </Routes>
       </div>
     </div>
