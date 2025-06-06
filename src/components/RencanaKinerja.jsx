@@ -9,6 +9,7 @@ function RencanaKinerja() {
   return (
       <div className="min-h-screen p-4">
         
+        <h1 className='text-3xl font-bold mb-4'>Rencana Kinerja</h1>
         <div className='flex justify-between items-center mb-4'>
           <div className='flex gap-2 w-full max-w-[75%]'>
             <input
@@ -22,8 +23,7 @@ function RencanaKinerja() {
             {today}
           </span>
         </div>
-        <h1 className='text-3xl font-bold mb-4'>Rencana Kinerja</h1>
-  
+
         <div className='overflow-y-auto max-h-screen pr-2'>
           {Array.from({ length: 10 }).map((_, index) => (
             <section 
