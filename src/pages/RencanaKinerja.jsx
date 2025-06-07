@@ -1,67 +1,66 @@
-import React from 'react'
-import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import CardRencanaKinerja from '../components/CardRencanaKinerja';
+import Header from '../components/Header'
+import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios';
 
 function RencanaKinerja() {
-   const navigate = useNavigate();
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const [rencanaKinerjaData, setRencanaKinerjaData] = useState([]);
+	const [searchTerm, setSearchTerm] = useState('');
+
     const today = new Date().toLocaleDateString('id-ID', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
+		weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+	});
 
-  return (
-		<div className="min-h-screen p-7">
-			<h1 className="text-3xl font-bold mb-4">Rencana Kinerja</h1>
-			<div className="flex justify-between items-center mb-4">
-				<div className="flex gap-2 w-full max-w-[75%]">
-					<input
-						type="text"
-						placeholder="Cari..."
-						className="border border-black rounded-lg p-3 w-full"
-					/>
-					<button className="bg-[#213854] text-white rounded-lg p-4">
-						<FaSearch />
-					</button>
-				</div>
-				<span className="bg-[#213854] text-white p-4 rounded-lg text-xl ml-4 whitespace-nowrap">
-					{today}
-				</span>
-			</div>
+	useEffect(() => {
+    const fetchRencanaKinerja = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        console.log("TOKEN:", token);
+        
+        const response = await axios.get('/skripsi_rencana_kinerja', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          params: { unit_kinerja_utama_id: id }
+        });
 
-			<div className="overflow-y-auto max-h-screen pr-2">
-				{Array.from({ length: 10 }).map((_, index) => (
-					<section
-						key={index}
-						className="bg-[#DDF4FF] border border-black rounded-lg mb-4 p-4 text-lg text-gray-900"
-					>
-						<header class="flex justify-between items-start mb-3">
-							<h3 class="font-bold">
-								Rencana Kerja : Menghasilkan mahasiswa yang menyelesaikan
-								program magang (PKL)
-							</h3>
-							<button
-								onClick={() => navigate("/RencanaProgramKerja")}
-								type="button"
-								className="bg-[#2981AA] text-white text-lg font-semibold rounded-lg px-4 py-1"
-							>
-								Lihat Detail
-							</button>
-						</header>
-						<dl class="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-lg">
-							<dt class="font-semibold">Unit Kinerja Utama ID</dt>
-							<dd class="whitespace-nowrap">: 2</dd>
+        console.log("DATA DARI API:", response.data);
 
-							<dt class="font-semibold">Indikator</dt>
-							<dd>: Jumlah mahasiswa yang menyelesaikan program magang</dd>
+        if (response.data.api_status === 1) {
+          setRencanaKinerjaData(response.data.data);
+        } else {
+          setError(response.data.api_message);
+        }
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching data:', err);
+      } 
+    };
 
-							<dt class="font-semibold">Target Indikator</dt>
-							<dd class="whitespace-nowrap">: 4</dd>
+    fetchRencanaKinerja();
+  }, []);
 
-							<dt class="font-semibold">Satuan</dt>
-							<dd class="whitespace-nowrap">: Mahasiswa</dd>
-						</dl>
-					</section>
-				))}
-			</div>
+  const filteredData = rencanaKinerjaData.filter(item =>
+    item.rencana_kinerja.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+	
+	return (
+		<div className="min-h-screen">
+			<Header title="Rencana Kinerja" />
+
+			<div className="overflow-y-auto max-h-screen px-7">
+        {filteredData.length > 0 ? (
+  filteredData.map((item, index) => (
+    <CardRencanaKinerja key={index} item={item} />
+  ))
+) : (
+  <p className="text-center py-4">Tidak ada data yang ditemukan</p>
+)}
+
+      </div>
 		</div>
 	);
 }

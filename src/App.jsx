@@ -33,7 +33,7 @@ function AppLayout() {
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/Dashboard" element={<Dashboard />} />
 					<Route path="/ProgramKinerja" element={<KinerjaUtama />} />
-					<Route path="/RencanaKinerja" element={<RencanaKinerja />} />
+					<Route path="/RencanaKinerja/:id" element={<RencanaKinerja />} />
 					<Route path="/RencanaProgramKerja" element={<RencanaProker />} />
 					<Route path="/ProgramKerja" element={<ProgramKerja />} />
 					<Route path="/DetailProgramKerja" element={<DetailProker />} />

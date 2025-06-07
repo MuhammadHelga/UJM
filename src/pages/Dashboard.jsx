@@ -36,7 +36,7 @@ function Dashboard() {
 				</div>
 				<div className="flex flex-row justify-between items-center">
 					<h2 className="text-xl font-medium">
-						Status Proker & Rencana Progream
+						Status Proker & Rencana Program
 					</h2>
 				</div>
 				<div className="w-full h-1 bg-greyPrimary my-2 rounded-lg"></div>

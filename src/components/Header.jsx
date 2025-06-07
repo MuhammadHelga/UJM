@@ -2,7 +2,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoAddOutline } from "react-icons/io5";
 
-const Header = ({title, add}) => {
+const Header = ({title, add, searchTerm, setSearchTerm}) => {
 	const today = new Date().toLocaleDateString("id-ID", {
 		year: "numeric",
 		month: "long",
@@ -15,6 +15,9 @@ const Header = ({title, add}) => {
 				<div className="flex flex-1 max-h-12 gap-x-4">
 					<input
 						type="text"
+						placeholder='Cari...'
+						value={searchTerm}
+            			onChange={(e) => setSearchTerm(e.target.value)} 
 						className="border border-black rounded-lg px-3 py-2 w-[85%]"
 					/>
 					<button className="rounded-lg px-4 py-2 bg-blueDarker text-white">

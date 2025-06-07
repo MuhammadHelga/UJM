@@ -13,11 +13,17 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '/jsiapps/public/api'),
       },
       '/skripsi_kinerja_utama': {
-      target: 'https://apps-jsi.ub.ac.id',
-      changeOrigin: true,
-      secure: false,
-      rewrite: (path) => path.replace(/^\/skripsi_kinerja_utama/, '/jsiapps/public/api/skripsi_kinerja_utama'),
-    }
+        target: 'https://apps-jsi.ub.ac.id',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/skripsi_kinerja_utama/, '/jsiapps/public/api/skripsi_kinerja_utama'),
+      },
+      '/skripsi_rencana_kinerja': {
+        target: 'https://apps-jsi.ub.ac.id',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/skripsi_rencana_kinerja/, '/jsiapps/public/api/skripsi_rencana_kinerja'),
+      },
     },
   },
 });
