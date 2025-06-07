@@ -2,13 +2,13 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoAddOutline } from "react-icons/io5";
 
-const Header = ({title, add, searchTerm, setSearchTerm}) => {
+const Header = ({title, add, onAdd, searchTerm, setSearchTerm}) => {
 	const today = new Date().toLocaleDateString("id-ID", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
 	});
-
+	
 	return (
 		<section className="flex flex-col gap-y-4 p-6 sticky top-0 z-10 bg-white shadow-sm">
 			<div className="flex flex-row justify-between items-center">
@@ -41,7 +41,8 @@ const Header = ({title, add, searchTerm, setSearchTerm}) => {
 						<p className="font-bold text-sm text-greyPrimary">Selesai</p>
 					</div>
 					{add && (
-						<button className="bg-greenPrimary text-white font-semibold py-2 px-6 rounded-lg flex flex-row items-center gap-x-2">
+						<button className="bg-greenPrimary text-white font-semibold py-2 px-6 rounded-lg flex flex-row items-center gap-x-2"
+						onClick={onAdd}>
 							<IoAddOutline size="1.5em" /> Tambah Rencana Kerja
 						</button>
 					)}
