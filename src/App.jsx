@@ -34,9 +34,12 @@ function AppLayout() {
 					<Route path="/Dashboard" element={<Dashboard />} />
 					<Route path="/ProgramKinerja" element={<KinerjaUtama />} />
 					<Route path="/RencanaKinerja/:id" element={<RencanaKinerja />} />
-					<Route path="/RencanaProgramKerja" element={<RencanaProker />} />
-					<Route path="/ProgramKerja" element={<ProgramKerja />} />
-					<Route path="/DetailProgramKerja" element={<DetailProker />} />
+					<Route path="/RencanaProgramKerja/:id" element={<RencanaProker />} />
+					<Route path="/ProgramKerja/:id" element={<ProgramKerja />} />
+					<Route
+						path="/ProgramKerja/:id/:detailId"
+						element={<DetailProker />}
+					/>
 				</Routes>
 			</div>
 		</div>

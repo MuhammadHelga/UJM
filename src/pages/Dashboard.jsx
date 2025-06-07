@@ -1,31 +1,72 @@
-import React from 'react'
-import CircleChart from '../components/CircleChart';
+import React, { useState } from "react";
+import CircleChart from "../components/CircleChart";
+import axios from "axios";
+import { useEffect } from "react";
 
-function Dashboard() {
-  const statusData = [
-		{
-			label: "Terlaksana",
-			value: 75,
-			bg: "bg-greenPrimary",
-			stroke: "#22c55e",
-		},
-		{
-			label: "Sedang Berjalan",
-			value: 50,
-			bg: "bg-orangePrimary",
-			stroke: "#eab308",
-		},
-		{ label: "Terencana", value: 30, bg: "bg-blueDarker", stroke: "#3b82f6" },
-		{ label: "Dibatalkan", value: 10, bg: "bg-redPrimary", stroke: "#ef4444" },
-	];
-  
+const Dashboard = () => {
+	const [DashboardStatus, setDashboardStatus] = useState([]);
 
-  const today = new Date().toLocaleDateString("id-ID", {
+	const fetchStatusData = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			console.log("Token: ", token);
+
+			const res = await axios.get("/skripsi_dashboard_status_proker_count", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			console.log("Data Api: ", res.data);
+			if (res.data.api_status === 1) {
+				setDashboardStatus(res.data.data);
+			} else {
+				setError(res.data.api_message);
+			}
+		} catch (err) {
+			setError(err.message);
+			console.error("Error fetching data:", err);
+		}
+	};
+
+	useEffect(() => {
+		fetchStatusData();
+	}, []);
+	const statusData = DashboardStatus.map((item) => {
+		// Tentukan warna dan stroke berdasarkan status, bisa kamu sesuaikan
+		let bg = "bg-blueLight";
+		let stroke = "#888888";
+
+		switch (item.status) {
+			case "Berjalan":
+				stroke = "#FF8900";
+				break;
+			case "Terlaksana":
+				stroke = "#6BDE6F";
+				break;
+			case "Dibatalkan":
+				stroke = "#EE4D00";
+				break;
+			case "Terencana":
+				stroke = "#213854";
+				break;
+			default:
+				break;
+		}
+
+		return {
+			label: item.status,
+			value: parseFloat(item.percent), // ubah string persen jadi number
+			bg,
+			stroke,
+		};
+	});
+
+	const today = new Date().toLocaleDateString("id-ID", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
 	});
-  return (
+	return (
 		<>
 			<header className="flex flex-col gap-y-2 p-6 sticky top-0 z-10 bg-white shadow-sm">
 				<div className="flex flex-row justify-between items-center">
@@ -47,13 +88,13 @@ function Dashboard() {
 						key={index}
 						className={`flex flex-col items-center justify-center ${item.bg} p-6 rounded-lg shadow`}
 					>
-						<CircleChart percentage={item.value} strokeColor={item.stroke}/>
-						<p className="mt-4 font-bold text-xl text-white">{item.label}</p>
+						<CircleChart percentage={item.value} strokeColor={item.stroke} />
+						<p className="mt-4 font-bold text-3xl">{item.label}</p>
 					</div>
 				))}
 			</section>
 		</>
 	);
-}
+};
 
-export default Dashboard
+export default Dashboard;

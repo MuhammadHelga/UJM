@@ -54,7 +54,7 @@ const CircleChart = ({ percentage, strokeColor }) => {
 				y="50%"
 				dominantBaseline="middle"
 				textAnchor="middle"
-				className="text-xl font-bold fill-slate-50"
+				className="text-xl font-bold"
 			>
 				{animatedPercent}%
 			</text>

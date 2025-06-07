@@ -49,18 +49,21 @@ function RencanaKinerja() {
 	
 	return (
 		<div className="min-h-screen">
-			<Header title="Rencana Kinerja" />
+			<Header
+				title="Rencana Kinerja"
+				searchTerm={searchTerm}
+				setSearchTerm={setSearchTerm}
+			/>
 
 			<div className="overflow-y-auto max-h-screen px-7">
-        {filteredData.length > 0 ? (
-  filteredData.map((item, index) => (
-    <CardRencanaKinerja key={index} item={item} />
-  ))
-) : (
-  <p className="text-center py-4">Tidak ada data yang ditemukan</p>
-)}
-
-      </div>
+				{filteredData.length > 0 ? (
+					filteredData.map((item, index) => (
+						<CardRencanaKinerja key={index} item={item} />
+					))
+				) : (
+					<p className="text-center py-4">Tidak ada data yang ditemukan</p>
+				)}
+			</div>
 		</div>
 	);
 }
