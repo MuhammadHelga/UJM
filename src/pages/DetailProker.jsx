@@ -140,8 +140,21 @@ const DetailProker = () => {
 						<h2 className="text-xl font-medium">
 							{foundData ? foundData.program : "Loading..."}
 						</h2>
-						<div className="bg-orangePrimary text-white font-semibold py-2 px-24 rounded-lg flex flex-row items-center gap-x-2">
-							Terlaksana
+						<div
+							className={`text-white font-semibold py-2 px-24 rounded-lg flex flex-row items-center gap-x-2
+							${
+								foundData?.status === "Terencana"
+								? "bg-[#213854]"
+								: foundData?.status === "Berjalan"
+								? "bg-[#FF8900]"
+								: foundData?.status === "Terlaksana"
+								? "bg-[#6BDE6F]"
+								: foundData?.status === "Dibatalkan"
+								? "bg-[#EE4D00]"
+								: "bg-gray-400"
+							}`}
+							>
+							{foundData ? foundData.status : "Loading..."}
 						</div>
 					</div>
 					<div className="w-full h-1 bg-greyPrimary my-2 rounded-lg"></div>
