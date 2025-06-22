@@ -1,29 +1,41 @@
 import React, { useEffect, useState } from "react";
 import CardListDetail from "../components/CardListDetail";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const DetailProker = () => {
-	const [editPopup, setEditPopup] = React.useState(false);
-	const [confirmDelete, setConfirmPopup] = React.useState(false);
+	const navigate = useNavigate();
+	const [editPopup, setEditPopup] = useState(false);
+	const [confirmDelete, setConfirmPopup] = useState(false);
 	const [DetailProkerData, setDetailProkerData] = useState([]);
+	const [editItem, setEditItem] = useState({
+		program: "",
+		tempat: "",
+		dana: "",
+		realisasi: "",
+		start_date: "",
+		end_date: "",
+		status: "",
+		deskripsi: "",
+		tahun: "",
+		bulan: "",
+		ketua: "",
+	});
+	const [error, setError] = useState(null);
+
 	const { id, detailId } = useParams();
 
 	useEffect(() => {
 		const fetchProkerData = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				console.log("Token: ", token);
-				console.log("Id Param: ", id);
-
 				const res = await axios.get("/skripsi_program_kerja", {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
 					params: { unit_rencana_program_id: id },
 				});
-				console.log("Data Api: ", res.data);
 				if (res.data.api_status === 1) {
 					setDetailProkerData(res.data.data);
 				} else {
@@ -31,78 +43,148 @@ const DetailProker = () => {
 				}
 			} catch (err) {
 				setError(err.message);
-				console.error("Error fetching data:", err);
 			}
 		};
 		fetchProkerData();
-	}, []);
+	}, [id]);
 
 	const foundData = Array.isArray(DetailProkerData)
 		? DetailProkerData.find((item) => String(item.id) === String(detailId))
 		: null;
 
-	console.log("Filtered Data: ", foundData);
+	useEffect(() => {
+		if (foundData) {
+			setEditItem({
+				program: foundData.program || "",
+				tempat: foundData.tempat || "",
+				dana: foundData.dana || "",
+				realisasi: foundData.realisasi || "",
+				start_date: foundData.start_date || "",
+				end_date: foundData.end_date || "",
+				status: foundData.status || "",
+				deskripsi: foundData.deskripsi || "",
+				tahun: foundData.tahun || "",
+				bulan: foundData.bulan || "",
+				ketua: foundData.ketua || "",
+			});
+		}
+	}, [foundData]);
+
+	const handleChangeEdit = (e) => {
+		const { name, value } = e.target;
+		setEditItem((prev) => ({ ...prev, [name]: value }));
+	};
+
+	const handleEditSubmit = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const res = await axios.post(
+				"/skripsi_program_kerja_update",
+				{
+					id: detailId,
+					unit_rencana_program_id: id,
+					...editItem,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (res.data.api_status === 1) {
+				alert("Program kerja berhasil diupdate!");
+				setEditPopup(false);
+				window.location.reload();
+			} else {
+				alert(res.data.api_message);
+			}
+		} catch (err) {
+			console.error("Error updating:", err);
+			alert("Gagal memperbarui data.");
+		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const res = await axios.get("/skripsi_program_kerja_delete", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				params: { id: detailId },
+			});
+			if (res.data.api_status === 1) {
+				alert("Program kerja berhasil dihapus!");
+				setConfirmPopup(false);
+				navigate(`/ProgramKerja/${id}`);
+			}
+		} catch (error) {
+			alert("Gagal menghapus program kerja.");
+		}
+	};
 
 	const EditPopup = () => (
 		<div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50">
 			<div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-xl">
 				<h2 className="text-2xl font-bold mb-4">Edit Program Kerja</h2>
-				<h3>Nama Program Kerja</h3>
-				<input
-					type="text"
-					placeholder="Nama Program Kerja"
-					value={foundData.program}
+
+				{[
+					{ label: "Nama Program Kerja", name: "program", type: "text" },
+					{ label: "Tempat", name: "tempat", type: "text" },
+					{ label: "Dana", name: "dana", type: "number" },
+					{ label: "Realisasi", name: "realisasi", type: "text" },
+					{ label: "Tanggal Mulai", name: "start_date", type: "date" },
+					{ label: "Tanggal Selesai", name: "end_date", type: "date" },
+					{ label: "Tahun", name: "tahun", type: "text" },
+					{ label: "Bulan", name: "bulan", type: "text" },
+					{ label: "Ketua", name: "ketua", type: "text" },
+				].map(({ label, name, type }) => (
+					<div key={name}>
+						<h3>{label}</h3>
+						<input
+							type={type}
+							name={name}
+							placeholder={label}
+							value={editItem[name]}
+							onChange={handleChangeEdit}
+							className="w-full mb-2 p-2 border rounded"
+						/>
+					</div>
+				))}
+
+				<h3>Status</h3>
+				<select
+					name="status"
+					value={editItem.status}
+					onChange={handleChangeEdit}
 					className="w-full mb-2 p-2 border rounded"
-				/>
-				<h3>Tempat</h3>
-				<input
-					type="text"
-					placeholder="Tempat"
-					value={foundData.tempat}
-					className="w-full mb-2 p-2 border rounded"
-				/>
-				<h3>Dana</h3>
-				<input
-					type="number"
-					placeholder="Dana"
-					value={foundData.dana}
-					className="w-full mb-2 p-2 border rounded"
-				/>
-				<h3>Realisasi</h3>
-				<input
-					type="text"
-					placeholder="Realisasi"
-					value={foundData.realisasi}
-					className="w-full mb-2 p-2 border rounded"
-				/>
-				<h3>Tanggal Mulai</h3>
-				<input
-					type="date"
-					placeholder="Tanggal Mulai"
-					value={foundData.start_date}
-					className="w-full mb-2 p-2 border rounded"
-				/>
-				<h3>Tanggal Selesai</h3>
-				<input
-					type="date"
-					placeholder="Tanggal Selesai"
-					value={foundData.end_date}
-					className="w-full mb-2 p-2 border rounded"
-				/>
+				>
+					<option value="Terencana">Terencana</option>
+					<option value="Berjalan">Berjalan</option>
+					<option value="Terlaksana">Terlaksana</option>
+					<option value="Dibatalkan">Dibatalkan</option>
+				</select>
+
 				<h3>Deskripsi</h3>
 				<textarea
-					placeholder="Deskripsi"
-					value={foundData.deskripsi}
+					name="deskripsi"
+					value={editItem.deskripsi}
+					onChange={handleChangeEdit}
 					className="w-full mb-2 p-2 border rounded"
 				/>
+
 				<div className="flex justify-end gap-x-4 mt-4">
 					<button
 						onClick={() => setEditPopup(false)}
-						className="px-4 py-2 rounded bg-gray-300"
+						className="px-4 py-2 bg-gray-300 rounded"
 					>
 						Batal
 					</button>
-					<button className="px-4 py-2 rounded bg-orangePrimary text-white">
+					<button
+						onClick={handleEditSubmit}
+						className="px-4 py-2 bg-orangePrimary text-white rounded"
+					>
 						Simpan
 					</button>
 				</div>
@@ -119,11 +201,14 @@ const DetailProker = () => {
 				<div className="flex justify-end gap-x-4">
 					<button
 						onClick={() => setConfirmPopup(false)}
-						className="px-4 py-2 rounded bg-gray-300"
+						className="px-4 py-2 bg-gray-300 rounded"
 					>
 						Batal
 					</button>
-					<button className="px-4 py-2 rounded bg-redPrimary text-white">
+					<button
+						onClick={handleDelete}
+						className="px-4 py-2 bg-redPrimary text-white rounded"
+					>
 						Hapus
 					</button>
 				</div>
@@ -141,19 +226,18 @@ const DetailProker = () => {
 							{foundData ? foundData.program : "Loading..."}
 						</h2>
 						<div
-							className={`text-white font-semibold py-2 px-24 rounded-lg flex flex-row items-center gap-x-2
-							${
+							className={`text-white font-semibold py-2 px-24 rounded-lg flex flex-row items-center gap-x-2 ${
 								foundData?.status === "Terencana"
-								? "bg-[#213854]"
-								: foundData?.status === "Berjalan"
-								? "bg-[#FF8900]"
-								: foundData?.status === "Terlaksana"
-								? "bg-[#6BDE6F]"
-								: foundData?.status === "Dibatalkan"
-								? "bg-[#EE4D00]"
-								: "bg-gray-400"
+									? "bg-[#213854]"
+									: foundData?.status === "Berjalan"
+									? "bg-[#FF8900]"
+									: foundData?.status === "Terlaksana"
+									? "bg-[#6BDE6F]"
+									: foundData?.status === "Dibatalkan"
+									? "bg-[#EE4D00]"
+									: "bg-gray-400"
 							}`}
-							>
+						>
 							{foundData ? foundData.status : "Loading..."}
 						</div>
 					</div>
@@ -185,6 +269,7 @@ const DetailProker = () => {
 				</div>
 				<div className="w-full h-1 bg-greyPrimary my-2 rounded-lg"></div>
 			</section>
+
 			{editPopup && <EditPopup />}
 			{confirmDelete && <ConfirmDelete />}
 		</div>
