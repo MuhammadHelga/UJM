@@ -31,15 +31,8 @@ const Header = ({title, add, onAdd, searchTerm, setSearchTerm}) => {
 
 			<h1 className="font-bold text-4xl">{title}</h1>
 
-			<div className="flex flex-col pt-2">
+			<div className="flex flex-col">
 				<div className="flex flex-row justify-between items-center">
-					<div className="flex flex-row gap-x-10">
-						<p className="font-bold text-sm text-black">Semua</p>
-						<p className="font-bold text-sm text-greyPrimary">
-							Sedang Berjalan
-						</p>
-						<p className="font-bold text-sm text-greyPrimary">Selesai</p>
-					</div>
 					{add && (
 						<button className="bg-greenPrimary text-white font-semibold py-2 px-6 rounded-lg flex flex-row items-center gap-x-2"
 						onClick={onAdd}>

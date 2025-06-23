@@ -1,4 +1,3 @@
-// import React from 'react'
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -25,8 +24,11 @@ function LoginPage() {
       if (response.data.api_status === 1) {
         const token = response.data.data.access_token;
         const userEmail = form.username; 
+        const userId = response.data.data.user_id;
+
         localStorage.setItem('token', token);
         localStorage.setItem('userEmail', userEmail);
+        localStorage.setItem('userId', userId);
         navigate('/Dashboard');
       } else {
         alert('Login gagal: ' + response.data.api_message);

@@ -3,6 +3,7 @@ import './App.css'
 import "@fontsource/poppins";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import DetailUser from "./pages/DetailUser"
 import KinerjaUtama from "./pages/KinerjaUtama";
 import RencanaKinerja from "./pages/RencanaKinerja";
 import SideBar from "./components/SideBar";
@@ -32,6 +33,7 @@ function AppLayout() {
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/Dashboard" element={<Dashboard />} />
+					<Route path="/DetailUser" element={<DetailUser />} />
 					<Route path="/ProgramKinerja" element={<KinerjaUtama />} />
 					<Route path="/RencanaKinerja/:id" element={<RencanaKinerja />} />
 					<Route path="/RencanaProgramKerja/:id" element={<RencanaProker />} />
