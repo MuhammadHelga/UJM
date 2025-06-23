@@ -13,16 +13,12 @@ const RencanaProker = () => {
 		const fetchThisData = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				console.log("Token: ", token);
-				console.log("ID PARAM:", id);
-
 				const res = await axios.get("/skripsi_rencana_program", {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
 					params: { unit_rencana_kinerja_id: id },
 				});
-				console.log("Data Api: ", res.data);
 				if (res.data.api_status === 1) {
 					setRencanaProkerData(res.data.data);
 				} else {

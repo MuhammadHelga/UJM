@@ -9,14 +9,11 @@ const Dashboard = () => {
 	const fetchStatusData = async () => {
 		try {
 			const token = localStorage.getItem("token");
-			console.log("Token: ", token);
-
 			const res = await axios.get("/skripsi_dashboard_status_proker_count", {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			console.log("Data Api: ", res.data);
 			if (res.data.api_status === 1) {
 				setDashboardStatus(res.data.data);
 			} else {
@@ -67,7 +64,7 @@ const Dashboard = () => {
 		day: "numeric",
 	});
 	return (
-		<>
+		<div className="h-screen flex flex-col min-h-0">
 			<header className="flex flex-col gap-y-2 p-6 sticky top-0 z-10 bg-white shadow-sm">
 				<div className="flex flex-row justify-between items-center">
 					<h1 className="font-bold text-4xl">DashBoard</h1>
@@ -82,7 +79,7 @@ const Dashboard = () => {
 				</div>
 				<div className="w-full h-1 bg-greyPrimary my-2 rounded-lg"></div>
 			</header>
-			<section className="p-6 grid grid-cols-2 gap-6">
+			<section className="p-6 grid grid-cols-2 gap-6 flex-1 overflow-y-auto">
 				{statusData.map((item, index) => (
 					<div
 						key={index}
@@ -93,7 +90,7 @@ const Dashboard = () => {
 					</div>
 				))}
 			</section>
-		</>
+		</div>
 	);
 };
 

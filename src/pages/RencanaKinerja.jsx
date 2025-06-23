@@ -15,47 +15,44 @@ function RencanaKinerja() {
 	});
 
 	useEffect(() => {
-    const fetchRencanaKinerja = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        console.log("TOKEN:", token);
-        
-        const response = await axios.get('/skripsi_rencana_kinerja', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-          params: { unit_kinerja_utama_id: id }
-        });
+		const fetchRencanaKinerja = async () => {
+			try {
+				const token = localStorage.getItem("token");
 
-        console.log("DATA DARI API:", response.data);
+				const response = await axios.get("/skripsi_rencana_kinerja", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+					params: { unit_kinerja_utama_id: id },
+				});
 
-        if (response.data.api_status === 1) {
-          setRencanaKinerjaData(response.data.data);
-        } else {
-          setError(response.data.api_message);
-        }
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching data:', err);
-      } 
-    };
+				if (response.data.api_status === 1) {
+					setRencanaKinerjaData(response.data.data);
+				} else {
+					setError(response.data.api_message);
+				}
+			} catch (err) {
+				setError(err.message);
+				console.error("Error fetching data:", err);
+			}
+		};
 
-    fetchRencanaKinerja();
-  }, []);
+		fetchRencanaKinerja();
+	}, []);
 
-  const filteredData = rencanaKinerjaData.filter(item =>
-    item.rencana_kinerja.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-	
+	const filteredData = rencanaKinerjaData.filter((item) =>
+		item.rencana_kinerja.toLowerCase().includes(searchTerm.toLowerCase())
+	);
+
 	return (
-		<div className="min-h-screen">
+		<div className="h-screen flex flex-col">
 			<Header
 				title="Rencana Kinerja"
 				searchTerm={searchTerm}
 				setSearchTerm={setSearchTerm}
 			/>
 
-			<div className="overflow-y-auto max-h-screen px-7">
+			<div className="overflow-y-auto flex-1 px-7">
 				{filteredData.length > 0 ? (
 					filteredData.map((item, index) => (
 						<CardRencanaKinerja key={index} item={item} />

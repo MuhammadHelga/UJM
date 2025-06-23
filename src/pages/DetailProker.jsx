@@ -5,69 +5,69 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EditPopup = ({ editItem, onChange, onClose, onSubmit }) => (
-    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-xl">
-        <h2 className="text-2xl font-bold mb-4">Edit Program Kerja</h2>
+	<div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50">
+		<div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-xl max-h-[90vh] overflow-y-auto">
+			<h2 className="text-2xl font-bold mb-4">Edit Program Kerja</h2>
 
-        {[
-          { label: "Nama Program Kerja", name: "program", type: "text" },
-          { label: "Tempat", name: "tempat", type: "text" },
-          { label: "Dana", name: "dana", type: "number" },
-          { label: "Realisasi", name: "realisasi", type: "text" },
-          { label: "Tanggal Mulai", name: "start_date", type: "date" },
-          { label: "Tanggal Selesai", name: "end_date", type: "date" },
-          { label: "Tahun", name: "tahun", type: "text" },
-          { label: "Bulan", name: "bulan", type: "text" },
-          { label: "Ketua", name: "ketua", type: "text" },
-        ].map(({ label, name, type }) => (
-          <div key={name}>
-            <h3>{label}</h3>
-            <input
-              type={type}
-              name={name}
-              placeholder={label}
-              value={editItem[name] ?? ""}
-              onChange={onChange}
-              className="w-full mb-2 p-2 border rounded"
-            />
-          </div>
-        ))}
+			{[
+				{ label: "Nama Program Kerja", name: "program", type: "text" },
+				{ label: "Tempat", name: "tempat", type: "text" },
+				{ label: "Dana", name: "dana", type: "number" },
+				{ label: "Realisasi", name: "realisasi", type: "text" },
+				{ label: "Tanggal Mulai", name: "start_date", type: "date" },
+				{ label: "Tanggal Selesai", name: "end_date", type: "date" },
+				{ label: "Tahun", name: "tahun", type: "text" },
+				{ label: "Bulan", name: "bulan", type: "text" },
+				{ label: "Ketua", name: "ketua", type: "text" },
+			].map(({ label, name, type }) => (
+				<div key={name}>
+					<h3>{label}</h3>
+					<input
+						type={type}
+						name={name}
+						placeholder={label}
+						value={editItem[name] ?? ""}
+						onChange={onChange}
+						className="w-full mb-2 p-2 border rounded"
+					/>
+				</div>
+			))}
 
-        <h3>Status</h3>
-        <select
-          name="status"
-          value={editItem.status ?? ""}
-          onChange={onChange}
-          className="w-full mb-2 p-2 border rounded"
-        >
-          <option value="Terencana">Terencana</option>
-          <option value="Berjalan">Berjalan</option>
-          <option value="Terlaksana">Terlaksana</option>
-          <option value="Dibatalkan">Dibatalkan</option>
-        </select>
+			<h3>Status</h3>
+			<select
+				name="status"
+				value={editItem.status ?? ""}
+				onChange={onChange}
+				className="w-full mb-2 p-2 border rounded"
+			>
+				<option value="Terencana">Terencana</option>
+				<option value="Berjalan">Berjalan</option>
+				<option value="Terlaksana">Terlaksana</option>
+				<option value="Dibatalkan">Dibatalkan</option>
+			</select>
 
-        <h3>Deskripsi</h3>
-        <textarea
-          name="deskripsi"
-          value={editItem.deskripsi ?? ""}
-          onChange={onChange}
-          className="w-full mb-2 p-2 border rounded"
-        />
+			<h3>Deskripsi</h3>
+			<textarea
+				name="deskripsi"
+				value={editItem.deskripsi ?? ""}
+				onChange={onChange}
+				className="w-full mb-2 p-2 border rounded"
+			/>
 
-        <div className="flex justify-end gap-x-4 mt-4">
-          <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
-            Batal
-          </button>
-          <button
-            onClick={onSubmit}
-            className="px-4 py-2 bg-orangePrimary text-white rounded"
-          >
-            Simpan
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+			<div className="flex justify-end gap-x-4 mt-4">
+				<button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
+					Batal
+				</button>
+				<button
+					onClick={onSubmit}
+					className="px-4 py-2 bg-orangePrimary text-white rounded"
+				>
+					Simpan
+				</button>
+			</div>
+		</div>
+	</div>
+);
 
 const DetailProker = () => {
   const navigate = useNavigate();
