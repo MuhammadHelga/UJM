@@ -24,7 +24,9 @@ function LoginPage() {
 
       if (response.data.api_status === 1) {
         const token = response.data.data.access_token;
+        const userEmail = form.username; 
         localStorage.setItem('token', token);
+        localStorage.setItem('userEmail', userEmail);
         navigate('/Dashboard');
       } else {
         alert('Login gagal: ' + response.data.api_message);
