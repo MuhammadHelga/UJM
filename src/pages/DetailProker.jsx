@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardListDetail from "../components/CardListDetail";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import { GoChecklist } from "react-icons/go";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -264,6 +265,12 @@ const DetailProker = () => {
             onClick={() => setConfirmPopup(true)}
           >
             <FaTrash /> Delete
+          </button>
+          <button
+            className="bg-[#213854] text-white font-bold text-lg py-2 px-24 rounded-lg flex flex-row items-center gap-x-2"
+            onClick={() => navigate("/Rapat")}
+          >
+            <GoChecklist /> Notulensi Rapat
           </button>
         </div>
         <div className="w-full h-1 bg-greyPrimary my-2 rounded-lg"></div>

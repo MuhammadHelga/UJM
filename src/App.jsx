@@ -11,6 +11,7 @@ import RencanaProker from "./pages/RencanaProker";
 import Dashboard from "./pages/Dashboard";
 import ProgramKerja from "./pages/ProgramKerja";
 import DetailProker from "./pages/DetailProker";
+import Rapat from './pages/Rapat';
 
 function App() {
 	return (
@@ -38,6 +39,7 @@ function AppLayout() {
 					<Route path="/RencanaKinerja/:id" element={<RencanaKinerja />} />
 					<Route path="/RencanaProgramKerja/:id" element={<RencanaProker />} />
 					<Route path="/ProgramKerja/:id" element={<ProgramKerja />} />
+					<Route path="/Rapat" element={<Rapat />} />
 					<Route
 						path="/ProgramKerja/:id/:detailId"
 						element={<DetailProker />}
