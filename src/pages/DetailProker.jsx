@@ -218,7 +218,7 @@ const DetailProker = () => {
 
   return (
     <div className="h-screen overflow-y-auto">
-      <header className="flex flex-col gap-y-2 p-6 sticky top-0 z-10 bg-white shadow-sm">
+      <header className="flex flex-col gap-y-2 p-6 sticky top-0 z-10 bg-white">
         <h1 className="font-bold text-4xl">Program Kerja</h1>
         <div className="flex flex-col">
           <div className="flex flex-row justify-between items-center">

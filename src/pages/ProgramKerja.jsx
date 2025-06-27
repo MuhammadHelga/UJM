@@ -25,7 +25,6 @@ const ProgramKerja = () => {
 		ketua: "",
 	});
 
-
 	const fetchProkerData = async () => {
 		try {
 		const token = localStorage.getItem("token");

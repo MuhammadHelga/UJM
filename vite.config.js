@@ -62,6 +62,17 @@ export default defineConfig({
 						"/jsiapps/public/api/skripsi_dashboard_status_proker_count"
 					),
 			},
+			"/rapat": {
+				target: "https://apps-jsi.ub.ac.id",
+				changeOrigin: true,
+				secure: false,
+				rewrite: (path) => 
+					path.replace(
+						/^\/rapat/, 
+						"/jsiapps/public/api/rapat"
+					),
+			},
+
 		},
 	},
 });

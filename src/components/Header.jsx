@@ -10,7 +10,7 @@ const Header = ({title, add, onAdd, searchTerm, setSearchTerm}) => {
 	});
 	
 	return (
-		<section className="flex flex-col gap-y-4 p-6 sticky top-0 z-10 bg-white shadow-sm">
+		<section className="flex flex-col gap-y-4 p-6 sticky top-0 z-10 bg-white">
 			<div className="flex flex-row justify-between items-center">
 				<div className="flex flex-1 max-h-12 gap-x-4">
 					<input
