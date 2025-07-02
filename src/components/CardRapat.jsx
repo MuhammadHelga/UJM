@@ -1,7 +1,6 @@
 import React from 'react'
 
 function CardRapat({data}) {
-	//membersihkan tag pada deskripsi
 	function cleanAgenda(html) {
 		if (!html) return "Tidak ada deskripsi agenda";
 		const textarea = document.createElement("textarea");
