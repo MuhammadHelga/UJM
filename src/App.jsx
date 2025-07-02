@@ -39,7 +39,7 @@ function AppLayout() {
 					<Route path="/RencanaKinerja/:id" element={<RencanaKinerja />} />
 					<Route path="/RencanaProgramKerja/:id" element={<RencanaProker />} />
 					<Route path="/ProgramKerja/:id" element={<ProgramKerja />} />
-					<Route path="/Rapat" element={<Rapat />} />
+					<Route path="/Rapat/:detailId" element={<Rapat />} />
 					<Route
 						path="/ProgramKerja/:id/:detailId"
 						element={<DetailProker />}

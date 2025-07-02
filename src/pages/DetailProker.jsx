@@ -268,7 +268,7 @@ const DetailProker = () => {
           </button>
           <button
             className="bg-[#213854] text-white font-bold text-lg py-2 px-24 rounded-lg flex flex-row items-center gap-x-2"
-            onClick={() => navigate("/Rapat")}
+            onClick={() => navigate(`/Rapat/${detailId}`)}
           >
             <GoChecklist /> Notulensi Rapat
           </button>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import CardRapat from '../components/CardRapat'
 
 function Rapat() {
   const [rapatList, setRapatList] = useState([]);
   const [error, setError] = useState(null);
+  const { detailId } = useParams();
 
   useEffect(() => {
     const fetchRapat = async () => {
@@ -17,7 +19,10 @@ function Rapat() {
         });
 
         if (res.data.api_status === 1) {
-          setRapatList(res.data.data);
+          // setRapatList(res.data.data);
+          const allData = res.data.data;
+          const filtered = allData.filter(item => String(item.unit_prokerjsi_id) === String(detailId));
+          setRapatList(filtered);
         } else {
           setError(res.data.api_message || 'Gagal mengambil data rapat.');
         }
