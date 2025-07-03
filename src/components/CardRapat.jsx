@@ -78,7 +78,9 @@ function CardRapat({data}) {
 										: "bg-gray-400 cursor-not-allowed"
 								}`}
 						>
-							File Pendukung
+							{data.file_pendukung
+								? "File Pendukung"
+								: "Tidak Ada File Pendukung"}
 						</button>
 						<button
 							onClick={() => {
@@ -93,7 +95,7 @@ function CardRapat({data}) {
 										: "bg-gray-400 text-white cursor-not-allowed"
 								}`}
 						>
-							{data.file_tambahan ? "File Tambahan" : "Tidak Ada File"}
+							{data.file_tambahan ? "File Tambahan" : "Tidak Ada File Tambahan"}
 						</button>
 					</div>
 				</div>

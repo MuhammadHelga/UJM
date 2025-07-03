@@ -244,7 +244,7 @@ const ProgramKerja = () => {
 				setSearchTerm={setSearchTerm}
 			/>
 
-			<div className="px-6 overflow-y-auto grid grid-cols-2 md:grid-cols-1 flex-1 gap-4 mb-6">
+			<div className="px-6 overflow-y-auto grid grid-cols-2 md:grid-cols-1 gap-4 mb-6">
 				{filteredData.length > 0 ? (
 					filteredData.map((item, index) => (
 						<CardProker key={index} item={item} />
