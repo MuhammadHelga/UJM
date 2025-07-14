@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function CardRapat({data}) {
 	function cleanAgenda(html) {
@@ -26,6 +27,8 @@ function CardRapat({data}) {
 			.trim();
 		return noExtraSpaces || "null";
 	}
+
+	const navigate = useNavigate();
 
 	return (
 		<div className="bg-white rounded-xl shadow-md overflow-hidden mb-4 hover:shadow-lg">
@@ -96,6 +99,12 @@ function CardRapat({data}) {
 								}`}
 						>
 							{data.file_tambahan ? "File Tambahan" : "Tidak Ada File Tambahan"}
+						</button>
+						<button 
+							className='text-white bg-stone-700 px-4 py-2 rounded'
+							onClick={() => navigate(`/Peserta`)}
+						>
+							Peserta Rapat
 						</button>
 					</div>
 				</div>

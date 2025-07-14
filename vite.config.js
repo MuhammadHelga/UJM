@@ -72,6 +72,16 @@ export default defineConfig({
 						"/jsiapps/public/api/rapat"
 					),
 			},
+			"/rapatpeserta": {
+				target: "https://apps-jsi.ub.ac.id",
+				changeOrigin: true,
+				secure: false,
+				rewrite: (path) => 
+					path.replace(
+						/^\/rapat/, 
+						"/jsiapps/public/api/rapatpeserta"
+					),
+			},
 
 		},
 	},

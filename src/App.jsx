@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import ProgramKerja from "./pages/ProgramKerja";
 import DetailProker from "./pages/DetailProker";
 import Rapat from './pages/Rapat';
+import PesertaRapat from './pages/PesertaRapat';
 
 function App() {
 	return (
@@ -44,6 +45,7 @@ function AppLayout() {
 						path="/ProgramKerja/:id/:detailId"
 						element={<DetailProker />}
 					/>
+					<Route path="/Peserta" element={<PesertaRapat />}/>
 				</Routes>
 			</div>
 		</div>
