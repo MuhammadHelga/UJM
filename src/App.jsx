@@ -45,7 +45,7 @@ function AppLayout() {
 						path="/ProgramKerja/:id/:detailId"
 						element={<DetailProker />}
 					/>
-					<Route path="/Peserta" element={<PesertaRapat />}/>
+					<Route path="/Peserta/:id" element={<PesertaRapat />}/>
 				</Routes>
 			</div>
 		</div>

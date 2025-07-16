@@ -78,7 +78,7 @@ export default defineConfig({
 				secure: false,
 				rewrite: (path) => 
 					path.replace(
-						/^\/rapat/, 
+						/^\/rapatpeserta/, 
 						"/jsiapps/public/api/rapatpeserta"
 					),
 			},

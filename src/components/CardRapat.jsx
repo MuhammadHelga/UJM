@@ -102,7 +102,7 @@ function CardRapat({data}) {
 						</button>
 						<button 
 							className='text-white bg-stone-700 px-4 py-2 rounded'
-							onClick={() => navigate(`/Peserta`)}
+							onClick={() => navigate(`/Peserta/${data.id}`)}
 						>
 							Peserta Rapat
 						</button>
